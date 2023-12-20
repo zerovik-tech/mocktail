@@ -16,6 +16,7 @@ function OldIphonesPage() {
 
   const [inputArray,setInputArray] = useState([]);  
   const [downloadButton, setDownloadButton] = useState(false)
+  const [isUploading, setIsUploading] = useState(false);
 
 
   const [images1, setImages1] = useState([]); //for mockup stores resized images
@@ -99,13 +100,13 @@ function OldIphonesPage() {
     const resizeImage = (image,setImage,setWidth,setHeight) =>{
 
       const canvas = document.createElement('canvas');
-        canvas.width =setWidth ;  //1180
-        canvas.height = setHeight; //2556
+        canvas.width =setWidth ; 
+        canvas.height = setHeight; 
         const context = canvas.getContext('2d');
         context.save();
 
         //rounding off the corners of canvas
-        roundCorners(context, canvas.width, canvas.height, 100, )
+        // roundCorners(context, canvas.width, canvas.height, 100, )
 
         // drawing the image on the canvas
         context.drawImage(image, 0, 0, setWidth, setHeight);
@@ -124,6 +125,7 @@ function OldIphonesPage() {
 
 
   const handleImageChange = (e) => {
+    setIsUploading(true);
     setImages1([])
    
     const selectedFiles = e.target.files; // Get the list of selected files
@@ -148,7 +150,7 @@ function OldIphonesPage() {
       img.src = event.target.result;
       img.onload = () => {
         // Resize image1
-        resizeImage(img,setImages1, 840, 1650);
+        resizeImage(img,setImages1, 756, 1334);
         
         
       };
@@ -166,6 +168,11 @@ function OldIphonesPage() {
 
 
   const handleClick = () => {
+    if(inputArray.length === 0){ 
+        alert('Please select a few items first')
+        return
+    }
+    setIsUploading(false);
 
     if (!checked1){ 
       alert("Please check the boxes for iphone");
@@ -204,9 +211,17 @@ function OldIphonesPage() {
     </div>
    
     <div className='outerBox' style={{ position: 'relative', top: '5%' }}>
-        <form onClick={() => document.querySelector(".input-field").click()} >        
-        <InputLabel htmlFor="image-upload"> <CloudUploadIcon /> Upload Images </InputLabel> <input id='image-upload' className='input-field' type="file" multiple accept="image/*" onChange={handleImageChange} hidden   /> 
+    <div className='innerBox'>
+         <form onClick={() => document.querySelector(".input-field").click()} >        
+        <InputLabel htmlFor="image-upload">     {isUploading ? (
+      `Selected ${inputArray.length} item${inputArray.length !== 1 ? 's' : ''}...` ) : (
+      <>
+        <CloudUploadIcon /> Upload Images
+      </>)}
+       </InputLabel> <input id='image-upload' className='input-field' type="file" multiple accept="image/*" onChange={handleImageChange} hidden   /> 
         </form>
+        <Button onClick = {() => {setInputArray([]); setImages1([]); setIsUploading(false) }} style={{margin:20, backgroundColor: 'blue', color: 'white'}}> Clear </Button>
+    </div>
         <div className= 'checkboxes'> 
         <FormControlLabel className='labels' label="iPhone Se" 
         control={<Checkbox checked={checked1} onChange={() => {  setChecked1((prevChecked) => !prevChecked);}} /> }/>

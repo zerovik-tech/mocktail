@@ -45,6 +45,10 @@ form{
     border-radius: 20px;
 }
 
+.innerBox{ 
+    display: block;
+}
+
 .buttonContainer {
     border: 2px;
     margin: 100px;

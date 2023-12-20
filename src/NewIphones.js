@@ -16,6 +16,8 @@ function ImageCombiner() {
   const [inputArray,setInputArray] = useState([]);  
   const [downloadButton, setDownloadButton] = useState(false)
 
+  const [isUploading, setIsUploading] = useState(false);
+
 
   const [images1, setImages1] = useState([]); //for mockup14Pro stores resized images
   const [images2, setImages2] = useState([]); //for mockup14 stores resized images
@@ -129,6 +131,7 @@ function ImageCombiner() {
 
 
   const handleImageChange = (e) => {
+    setIsUploading(true);
     setImages1([])
     setImages2([])
     const selectedFiles = e.target.files; // Get the list of selected files
@@ -171,6 +174,11 @@ function ImageCombiner() {
 
 
   const handleClick = () => {
+    if(inputArray.length === 0){ 
+        alert('Please select a few items first')
+        return
+    }
+    setIsUploading(false);
 
     if (!checked1 && ! checked2){ 
       alert("Please check the boxes for iphone");
@@ -229,9 +237,21 @@ function ImageCombiner() {
     </div>
    
     <div className='outerBox' style={{ position: 'relative', top: '5%' }}>
-        <form onClick={() => document.querySelector(".input-field").click()} >        
-        <InputLabel htmlFor="image-upload"> <CloudUploadIcon /> Upload Images </InputLabel> <input id='image-upload' className='input-field' type="file" multiple accept="image/*" onChange={handleImageChange} hidden   /> 
+    <div className='innerBox'>
+         <form onClick={() => document.querySelector(".input-field").click()} >        
+        <InputLabel htmlFor="image-upload">     {isUploading ? (
+      `Selected ${inputArray.length} item${inputArray.length !== 1 ? 's' : ''}...` ) : (
+      <>
+        <CloudUploadIcon /> Upload Images
+      </>)}
+       </InputLabel> <input id='image-upload' className='input-field' type="file" multiple accept="image/*" onChange={handleImageChange} hidden   /> 
         </form>
+        <Button onClick = {() => {setInputArray([]); setImages1([]); setImages2([]); setIsUploading(false) }} style={{margin:20, backgroundColor: 'blue', color: 'white'}}> Clear </Button>
+    </div>
+       
+        
+
+
         <div className= 'checkboxes'> 
         <FormControlLabel className='labels' label="iPhone 14 Pro" 
         control={<Checkbox checked={checked1} onChange={() => {  setChecked1((prevChecked) => !prevChecked);}} /> }/>
