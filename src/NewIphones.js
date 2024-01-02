@@ -182,9 +182,7 @@ function NewIphonesImageCombiner() {
     console.log(selectedFiles.length)
 
     const fileArray = Array.from(selectedFiles);
-    if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+    
 
     setInputArray((prev) => { 
         return fileArray
@@ -198,12 +196,14 @@ function NewIphonesImageCombiner() {
 
 };
  
-//   useEffect (() => { 
-//     console.log('printing inputArray in useEffect Hook for inputArray : ', inputArray)
+  useEffect (() => { 
+    console.log('printing inputArray in useEffect Hook for inputArray : ', inputArray)
    
-    
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
 
-//   },[inputArray])
+  },[inputArray])
 
 
 
