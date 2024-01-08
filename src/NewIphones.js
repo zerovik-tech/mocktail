@@ -200,7 +200,7 @@ function NewIphonesImageCombiner() {
     console.log('printing inputArray in useEffect Hook for inputArray : ', inputArray)
    
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = null;
     }
 
   },[inputArray])
@@ -335,39 +335,81 @@ useEffect(() => {
   
 
   return (
-<div>
-    <div className = 'phoneOptions' style={{position: 'absolute',top: '1%'}}>
-      <Button onClick={() => {navigate('/')}} variant="contained" style={{margin:20, backgroundColor: 'gray', color: 'white'}} >New iphones</Button>
-      <Button onClick={() => { navigate('/old-iphones'); }} variant="contained"  style={{margin:20, backgroundColor: 'white', color: 'black'}}>Old iPhones</Button>
-    </div>
-   
-    <div className='outerBox' style={{ position: 'relative', top: '5%' }}>
-    <div className='innerBox'>
-         <form onClick={() => document.querySelector(".input-field").click()} >        
-        <InputLabel htmlFor="image-upload">     {isUploading ? (
-      `Selected ${inputArray.length} item${inputArray.length !== 1 ? 's' : ''}...` ) : (
-      <>
-        <CloudUploadIcon /> Upload Images
-      </>)}
-       </InputLabel> <input ref={fileInputRef} id='image-upload' className='input-field' type="file" multiple accept="image/*" onChange={handleImageChange} hidden disabled={( processImage && !downloadButton) || (!processImage && downloadButton) }  /> 
-        </form>
-        <Button onClick = {() => {setInputArray([]); setImages1([]); setImages2([]); setIsUploading(false) }} style={{margin:20, backgroundColor: 'blue', color: 'white'}}> Clear </Button>
-    </div>
-       
+<div className='container bg-white'>
+            <div className='row m-5 '>
+            <button type="button"  onClick={() => {navigate('/')}} className="btn col bg-primary text-white mx-2"  variant="contained"  >New iphones</button>
+            <button type="button" onClick={() => { navigate('/old-iphones'); }} className="btn col bg-secondary text-white mx-2"  variant="contained"  >Old iphones</button>
+            <div className='row outerBox my-5 bg-light align-items-center   '>
+            <div className='col'>
+        <div className='row innerBox  p-5 align-items-center '>
+            <div className='col'>
+            <form className='row  p-5 '>
+            
+                    <label  htmlFor="fileInput"  style={{ cursor: 'pointer', color: 'gray' }}> 
+                        {isUploading ? (
+        `Selected ${inputArray.length} item${inputArray.length !== 1 ? 's' : ''}...` ) : (
+        <>
+        <i class="bi bi-cloud-arrow-up" style={{ fontSize: '2rem' }}></i> Upload Images
+        </>)}
+                    </label>
+                        <input type="file"  ref={fileInputRef} className="input-field" id="fileInput" multiple accept="image/*" onChange={handleImageChange} hidden disabled={( processImage && !downloadButton) || (!processImage && downloadButton) }    />
+                </form>
+            
+            </div>
+
+            <div className='col my-2 p-2'>
+
+        <div className='row checkBoxes  p-2 m-2 '>
+        <div className='col '>
+        <div class="form-check  ">
+        <input class="form-check-input" type="checkbox" checked={checked1} onChange={() => {  setChecked1((prevChecked) => !prevChecked);}} id="checkbox1" />
+        <label class="form-check-label " for="checkbox1">
+        iPhone 14 Pro
+        </label>
+        </div>
+        </div>  
+        </div>
+
+        <div className='row checkBoxes  p-2 m-2'>
+            <div className='col'>
+        <div class="form-check ">
+        <input class="form-check-input" type="checkbox" checked={checked2} onChange={() => { setChecked2((prevChecked) => !prevChecked);}} id="checkbox2" />
+        <label class="form-check-label" for="checkbox2">
+        iPhone 14
+        </label>
+        </div>
+        </div> 
+        </div>
+
+        <div className='row p-2 m-2'>
+                <button type="button" onClick = {() => {setInputArray([]); setImages1([]); setImages2([]); setIsUploading(false) }} class="btn btn-primary col">Clear</button>
+                </div>
         
 
+            
+        </div>
+            
+            
+            </div>
 
-        <div className= 'checkboxes'> 
-        <FormControlLabel className='labels' label="iPhone 14 Pro" 
-        control={<Checkbox checked={checked1} onChange={() => {  setChecked1((prevChecked) => !prevChecked);}} /> }/>
-        <FormControlLabel className='labels' label="iPhone 14"
-        control={ <Checkbox checked={checked2} onChange={() => { setChecked2((prevChecked) => !prevChecked);}} />} />
-    </div>
-        <Button className='buttonContainer'  onClick={handleClick} variant="contained" color='success'  style={{position: 'absolute',bottom: 120,right: 40 }} disabled={( processImage && !downloadButton) || (!processImage && downloadButton) } > 
-          {buttonText}
-            </Button>
-    </div>
-</div>
+        
+            </div>
+        
+        <div className='col-lg-4 p-2'>
+        <div className='row h-50'> </div>
+        <div className='row h-25 ' > <button type="button" onClick={handleClick} class="btn btn-success"  disabled={( processImage && !downloadButton) || (!processImage && downloadButton) }>{buttonText} </button></div>
+        <div className='row h-25'> </div>
+        
+        </div>
+            
+        
+            </div>
+            </div>
+
+
+
+            
+            </div>
     
   );
 }

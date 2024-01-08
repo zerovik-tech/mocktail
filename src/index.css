@@ -1,4 +1,4 @@
-html{
+/* html{
    
     display: flex;
     justify-content: center;
@@ -28,7 +28,7 @@ form{
     margin: 20px;
     height: 300px;
     width: 500px;
-    cursor: pointer;
+    
     border-radius: 20px;
 }
 
@@ -73,4 +73,21 @@ form{
     display: flex;
     
    
+} */
+
+.checkBoxes{
+    background-color: #EAD7BB;
+    border-radius: 10px;
+    font-weight: 500;
 }
+
+form {
+    background-color: #F5E8B7;
+    border-radius: 1rem;
+    font-weight: bold;
+}
+
+.outerBox{ 
+    border-radius: 1rem;
+}
+
