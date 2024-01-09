@@ -4,10 +4,7 @@ import React, { useState,useEffect, useRef} from 'react';
 import iphoneSeMockup from './images/iphoneSeMockup/mockupSe.png';
 
 import './index.css'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { InputLabel } from '@material-ui/core';
 
-import {Button,Checkbox, FormControlLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 function OldIphonesImageCombiner() {
